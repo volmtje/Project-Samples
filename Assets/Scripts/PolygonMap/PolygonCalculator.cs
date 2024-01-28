@@ -7,9 +7,11 @@ public class PolygonCalculator
 {
 	// This list will be filld by this class. A polygon consists of a center point and a List of corners
 	private Dictionary<Vector2, List<Vector2>> polygons = new Dictionary<Vector2, List<Vector2>>();
+
 	// Each centerpoint belongs to one polygon
 	private List<Vector2> centerPoints;
 	Vector2 screenSize;
+
 
     public PolygonCalculator(Vector2 screenSize, List<Vector2> points, List<Edge> edges)
     {
@@ -23,10 +25,12 @@ public class PolygonCalculator
 		SortPolygonCorners();
 	}
 
+
 	public Dictionary<Vector2, List<Vector2>> GetPolygons()
 	{
 		return polygons;
 	}
+
 
 	// This function passes all neccessary points on screen to be matched as corner points
 	private void GetCornersFromEdges(List<Edge> edges)
@@ -78,6 +82,7 @@ public class PolygonCalculator
 				polygons[p].Add(corner);
 		}
 	}
+
 
 	// This function sorts the corner vectors in all polygon lists by the angle relative to the according center point
 	private void SortPolygonCorners()
