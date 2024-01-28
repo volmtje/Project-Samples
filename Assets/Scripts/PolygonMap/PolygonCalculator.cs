@@ -9,18 +9,15 @@ public class PolygonCalculator
 	private List<Vector2> centerPoints;
 	Vector2 screenSize;
 
-    public PolygonCalculator(int numberOfPoints)
+    public PolygonCalculator(Vector2 screenSize, List<Vector2> points, List<Edge> edges)
     {
-		screenSize.x = Screen.width;
-		screenSize.y = Screen.height;
-
-		MainForm form = new MainForm(Vector2.zero, screenSize, numberOfPoints);
-		centerPoints = form.points;
+		this.screenSize = screenSize;
+		centerPoints = points;
 
 		foreach (Vector2 p in centerPoints)
 			polygons.Add(p, new List<Vector2>());
 
-		ProcessPoints();
+		ProcessEdges(edges);
 		SortPolygonCorners();
 	}
 
@@ -29,10 +26,10 @@ public class PolygonCalculator
 		return polygons;
 	}
 
-	private void ProcessPoints()
+	private void ProcessEdges(List<Edge> edges)
     {
 		//match all start and end points of edges to center points
-		foreach (VoronoiEdge e in VoronoiEdge.edges) 
+		foreach (Edge e in edges) 
 		{
 			CheckCutEdge(e); //cut the edge where it leaves the screen
 			MatchPointToCenter(e.point1);
@@ -82,7 +79,7 @@ public class PolygonCalculator
 
 
 	// this function Sets Up Edges to be cut, that go beyond the edges of the scren
-	private void CheckCutEdge(VoronoiEdge edge)
+	private void CheckCutEdge(Edge edge)
     {
 		//check for points outside of screen
 		Vector2 dir = Vector2.zero;
@@ -93,7 +90,7 @@ public class PolygonCalculator
 	}
 
 	//this function finds the side at which the line leaves the screen and replaces its endpoint with the point on the screen
-	private Vector2 CutEdge(VoronoiEdge edge, Vector2 dir)
+	private Vector2 CutEdge(Edge edge, Vector2 dir)
     {
 		//screen corner coordinates
 		Vector2 ll = new Vector2(0, 0);

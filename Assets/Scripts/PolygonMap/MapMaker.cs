@@ -9,7 +9,12 @@ public class MapMaker : MonoBehaviour
 
     private void Start()
     {
-        PolygonCalculator pc = new PolygonCalculator(polygonAmmount); // prep the epolygons
+        Vector2 screenSize;
+        screenSize.x = Screen.width;
+        screenSize.y = Screen.height;
+
+        FortunesVoronoiGraph fortune = new FortunesVoronoiGraph(Vector2.zero, screenSize, polygonAmmount);
+        PolygonCalculator pc = new PolygonCalculator(screenSize, fortune.GetPoints(), fortune.GetEdges()); // prep the polygons
 
         foreach (var polygon in pc.GetPolygons())
             MakePolygonGameObject(polygon.Key, polygon.Value);
@@ -35,3 +40,4 @@ public class MapMaker : MonoBehaviour
         polygonObject.transform.position = pos;
     }
 }
+

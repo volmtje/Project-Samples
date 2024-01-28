@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // Diese Klasse implementiert eine Vergleichsmethode für das Sortieren der Punkte
 class PointComparer : Comparer<Vector2>
 {
@@ -95,6 +96,19 @@ class VoronoiEdge
 	}
 }
 
+public class Edge
+{
+	// Endpunkte der Kante
+	public Vector2 point1;
+	public Vector2 point2;
+
+	public Edge(Vector2 pointOne, Vector2 pointTwo)
+    {
+		point1 = pointOne;
+		point2 = pointTwo;
+    }
+}
+
 // Klasse, die die Methoden für den Algorithmus von Fortune deklariert
 class Fortune
 {
@@ -118,7 +132,7 @@ class Fortune
 		if (circleEvent.isValid) // Wenn das CircleEvent aktuell ist
 		{
 			VoronoiEdge edge = new VoronoiEdge(circleEvent.point); // Erzeugt eine neue Kante
-																   // Entfernt den zugehörigen Parabelbogen
+																	// Entfernt den zugehörigen Parabelbogen
 			ParabolaArc arc = circleEvent.arc;
 			if (arc.previousArc != null)
 			{
@@ -130,17 +144,17 @@ class Fortune
 				arc.nextArc.previousArc = arc.previousArc;
 				arc.nextArc.edge1 = edge;
 			}
-            // Stellt die benachbarten Kanten des Parabelbogens fertig
-            if (arc.edge1 != null)
-            {
-                arc.edge1.Finish(circleEvent.point);
-            }
-            if (arc.edge2 != null)
-            {
-                arc.edge2.Finish(circleEvent.point);
-            }
-            // Prüft die CircleEvents auf beiden Seiten des Parabelbogens
-            if (arc.previousArc != null)
+			// Stellt die benachbarten Kanten des Parabelbogens fertig
+			if (arc.edge1 != null)
+			{
+				arc.edge1.Finish(circleEvent.point);
+			}
+			if (arc.edge2 != null)
+			{
+				arc.edge2.Finish(circleEvent.point);
+			}
+			// Prüft die CircleEvents auf beiden Seiten des Parabelbogens
+			if (arc.previousArc != null)
 			{
 				CheckCircleEvent(arc.previousArc, circleEvent.x);
 			}
@@ -326,18 +340,18 @@ class Fortune
 }
 
 // Klasse für das Hauptfenster
-public partial class MainForm
+public partial class FortunesVoronoiGraph
 {
-	public List<Vector2> points = new List<Vector2>(); // Liste der Punkte
+	private List<Vector2> points = new List<Vector2>(); // Liste der Punkte
 	private double x1, y1, x2, y2;
 
-	public MainForm(Vector2 minCoordinates, Vector2 maxCoordinates, int numberOfPoints)
+	public FortunesVoronoiGraph(Vector2 minCoordinates, Vector2 maxCoordinates, int numberOfPoints)
 	{
 		// Setzt die Koordinaten der Eckpunkte
-		x1 = minCoordinates.x; 
-		y1 = minCoordinates.y; 
-		x2 = maxCoordinates.x; 
-		y2 = maxCoordinates.y; 
+		x1 = minCoordinates.x;
+		y1 = minCoordinates.y;
+		x2 = maxCoordinates.x;
+		y2 = maxCoordinates.y;
 
 		System.Random random = new System.Random(); // Initialisiert den Zufallsgenerator
 		for (int i = 0; i < numberOfPoints; i++) // Diese for-Schleife erzeugt 10 zufällige Punkte innerhalb der quadratischen Zeichenfläche
@@ -369,5 +383,18 @@ public partial class MainForm
 			fortune.ProcessCircleEvent();
 		}
 		fortune.FinishEdges(x1, y1, x2, y2); // Aufruf der Methode, stellt die benachbarten Kanten der Parabelbögen fertig
+	}
+
+	public List<Vector2> GetPoints()
+	{
+		return points;
+	}
+
+	public List<Edge> GetEdges()
+	{
+		List<Edge> edges = new List<Edge>();
+		foreach (VoronoiEdge ve in VoronoiEdge.edges)
+			edges.Add(new Edge(ve.point1, ve.point2));
+		return edges;
 	}
 }
