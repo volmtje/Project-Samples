@@ -14,7 +14,10 @@ public class MapMaker : MonoBehaviour
         screenSize.y = Screen.height;
 
         FortunesVoronoiGraph fortune = new FortunesVoronoiGraph(Vector2.zero, screenSize, polygonAmmount);
-        PolygonCalculator pc = new PolygonCalculator(screenSize, fortune.GetPoints(), fortune.GetEdges()); // prep the polygons
+        List<Vector2> points = fortune.GetPoints();
+        List<Edge> edges = fortune.GetEdges();
+
+        PolygonCalculator pc = new PolygonCalculator(screenSize, points, edges); // prep the polygons
 
         foreach (var polygon in pc.GetPolygons())
             MakePolygonGameObject(polygon.Key, polygon.Value);

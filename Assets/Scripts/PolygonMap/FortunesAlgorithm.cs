@@ -96,19 +96,6 @@ class VoronoiEdge
 	}
 }
 
-public class Edge
-{
-	// Endpunkte der Kante
-	public Vector2 point1;
-	public Vector2 point2;
-
-	public Edge(Vector2 pointOne, Vector2 pointTwo)
-    {
-		point1 = pointOne;
-		point2 = pointTwo;
-    }
-}
-
 // Klasse, die die Methoden für den Algorithmus von Fortune deklariert
 class Fortune
 {
@@ -342,6 +329,7 @@ class Fortune
 // Klasse für das Hauptfenster
 public partial class FortunesVoronoiGraph
 {
+	private FortuneEdgeExtractor edgeExtractor = new FortuneEdgeExtractor();
 	private List<Vector2> points = new List<Vector2>(); // Liste der Punkte
 	private double x1, y1, x2, y2;
 
@@ -391,10 +379,7 @@ public partial class FortunesVoronoiGraph
 	}
 
 	public List<Edge> GetEdges()
-	{
-		List<Edge> edges = new List<Edge>();
-		foreach (VoronoiEdge ve in VoronoiEdge.edges)
-			edges.Add(new Edge(ve.point1, ve.point2));
-		return edges;
-	}
+    {
+		return edgeExtractor.GetEdges(this, new Vector2((float) x2, (float) y2));
+    }
 }
