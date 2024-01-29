@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PolygonCalculator
 {
-	// This list will be filld by this class. A polygon consists of a center point and a List of corners
+	// This list will be filled by this class. A polygon consists of a center point and a List of corners
 	private Dictionary<Vector2, List<Vector2>> polygons = new Dictionary<Vector2, List<Vector2>>();
 
 	// Each centerpoint belongs to one polygon

@@ -11,11 +11,7 @@ public class PolygonMeshGenerator
     int numberOfVertecies;
     int numberOfTriangles;
 
-    /// <summary>
-    /// Create a new polygon mesh generator for a given polygon
-    /// </summary>
-    /// <param name="origin"> the origin point according to fortune's algorithm (screen space) </param>
-    /// <param name="corners">the corner points according to fortune's algorithm  relative to the origin point (screenspace and clockwise)</param>
+    // This Function creates a new polygon mesh generator for a given polygon
     public PolygonMeshGenerator(Vector2 origin, List<Vector2> corners)
     {
         numberOfVertecies = corners.Count;
@@ -31,7 +27,6 @@ public class PolygonMeshGenerator
     }
 
 
-    /// <returns>the mesh of this PolygonMeshGenerators given polygon</returns>
     public Mesh GetPolygonMesh()
     {
         Mesh mesh = new Mesh();
