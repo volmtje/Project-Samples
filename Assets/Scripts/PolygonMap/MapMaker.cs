@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MapMaker : MonoBehaviour
 {
     [SerializeField] Material material;
@@ -48,4 +49,3 @@ public class MapMaker : MonoBehaviour
         polygonObject.transform.position = pos;
     }
 }
-

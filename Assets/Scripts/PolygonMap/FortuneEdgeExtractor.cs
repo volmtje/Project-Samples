@@ -3,25 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 // This class translates the VoronoiEdges of a given fortuneVoronoiGraph to Edges usable for polygon map calculation
-public class FortuneEdgeExtractor 
+public class FortuneEdgeExtractor
 {
 	Vector2 screenSize;
 
 	// This function translates the fortunes VoronoiEdges to screen fit Edges
 	public List<Edge> GetEdges(FortunesVoronoiGraph fortune, Vector2 screenSize)
-    {
+	{
 		this.screenSize = screenSize;
 		List<Edge> edges = new List<Edge>();
 
 		foreach (VoronoiEdge ve in VoronoiEdge.edges)
-        {
+		{
 			Edge e = new Edge(ve.point1, ve.point2);
 			// Make sure the edge stops where the screen ends
 			CheckCutEdge(e);
 			edges.Add(e);
 		}
-		
+
 		return edges;
 	}
 
@@ -87,7 +89,7 @@ public class FortuneEdgeExtractor
 		// Direction in which the point exceedes the bound of the screen
 		direction = Vector2.zero;
 
-		if (point.x < 0)	//left
+		if (point.x < 0) //left
 			direction.x = -1;
 		else if (point.x > screenSize.x) //right
 			direction.x = 1;

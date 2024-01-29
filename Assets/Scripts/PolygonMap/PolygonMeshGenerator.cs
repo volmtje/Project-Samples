@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PolygonMeshGenerator
 {
     Vector3[] vertecies;
@@ -84,7 +85,7 @@ public class PolygonMeshGenerator
             meshMin.y -= delta / 2;
             meshMax.y += delta / 2;
         }
-        else if( delta < 0) //higher than wide
+        else if (delta < 0) //higher than wide
         {
             delta = Mathf.Abs(delta);
             meshMin.x -= delta / 2;
