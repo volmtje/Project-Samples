@@ -335,19 +335,20 @@ public partial class FortunesVoronoiGraph
 
 	public FortunesVoronoiGraph(Vector2 minCoordinates, Vector2 maxCoordinates, int numberOfPoints)
 	{
-		// Setzt die Koordinaten der Eckpunkte
-		x1 = minCoordinates.x;
+        // Setzt die Koordinaten der Eckpunkte
+        x1 = minCoordinates.x;
 		y1 = minCoordinates.y;
 		x2 = maxCoordinates.x;
 		y2 = maxCoordinates.y;
 
 		System.Random random = new System.Random(); // Initialisiert den Zufallsgenerator
-		for (int i = 0; i < numberOfPoints; i++) // Diese for-Schleife erzeugt 10 zufällige Punkte innerhalb der quadratischen Zeichenfläche
+		for (int i = 0; i < numberOfPoints; i++) // Diese for-Schleife erzeugt zufällige Punkte innerhalb der quadratischen Zeichenfläche
 		{
 			Vector2 point = new Vector2();
 			point.x = (float)(random.NextDouble() * (x2 - x1) + x1);
 			point.y = (float)(random.NextDouble() * (y2 - y1) + y1);
-			points.Add(point); // Fügt den Punkt der Liste hinzu
+			if(!points.Contains(point))
+				points.Add(point); // Fügt den Punkt der Liste hinzu
 		}
 		points.Sort(new PointComparer()); // Sortiert die Punkte
 		Fortune fortune = new Fortune(); // Erzeugt ein Objekt der Klasse Fortune
@@ -379,7 +380,7 @@ public partial class FortunesVoronoiGraph
 	}
 
 	public List<Edge> GetEdges()
-    {
-		return edgeExtractor.GetEdges(this, new Vector2((float) x2, (float) y2));
-    }
+	{
+		return edgeExtractor.GetEdges(this, new Vector2((float)x2, (float)y2));
+	}
 }
